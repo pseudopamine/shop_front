@@ -6,12 +6,14 @@ import MyItemForm from './components/MyItemForm'
 import CateManage from './components/CateManage'
 import UserJoin from './components/UserJoin'
 import Login from './components/Login'
+import StorageTest from './components/practice/StorageTest'
 
 
 function App() {
 
   return (
     <div className='container'>
+      {/* <StorageTest /> */}
 
       <Routes>
         {/* 유저가 접속하는 페이지 */}
