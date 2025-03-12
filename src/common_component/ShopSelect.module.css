@@ -1,0 +1,9 @@
+.select{
+  outline: 1px solid rgb(255, 20, 147);
+  border: none;
+  border-radius: 4px;
+}
+
+.select:focus{
+  outline: 1.5px solid rgb(255, 20, 220);
+}

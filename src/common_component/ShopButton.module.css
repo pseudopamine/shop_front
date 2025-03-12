@@ -1,0 +1,28 @@
+.btn{
+  padding: 4px 16px;
+  font-size: 0.8rem;
+  background-color: rgb(255, 20, 147);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 80px;
+  transition: all 0.3s;
+}
+
+.btn:hover{
+  cursor: pointer;
+  background-color: rgb(255, 20, 220);
+}
+
+.small{
+  width: 80px;
+}
+
+.normal{
+  width: 100px;
+}
+
+.large{
+  width: 120px;
+}
+

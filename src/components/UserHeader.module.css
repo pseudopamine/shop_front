@@ -1,0 +1,50 @@
+.header_container{
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.login_div{
+  text-align: right;
+  background-color: #111111;
+  color: #dddddd;
+}
+
+.login_div > span{
+  margin-left: 10px;
+}
+
+.banner_div{
+  position: relative;
+}
+
+.banner_div > img{
+  width: 100%;
+  display: block;
+}
+
+.banner_div > p{
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  font-weight: 900;
+  font-size: 3rem;
+  letter-spacing: 10px;
+}
+
+.menu_div{
+  padding: 8px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.menu_ul{
+  display: flex;
+  margin-left: 12px;
+  gap: 20px;
+}
+
+
+
+
+
+
+
