@@ -4,6 +4,7 @@ import ShopInput from "../common_component/ShopInput";
 import ShopButton from "../common_component/ShopButton";
 import axios from "axios";
 import { loginUser } from "../apies/userApi";
+import { useNavigate } from "react-router-dom";
 
 
 /**
@@ -19,7 +20,8 @@ import { loginUser } from "../apies/userApi";
  * 
  * 
  */
-const Login = () => {
+const Login = ({setLoginInfo}) => {
+  const nav = useNavigate();
   const [loginData, setLoginData] = useState({
     userId : '',
     userPw : ''
@@ -44,9 +46,27 @@ const Login = () => {
       else{
         alert('로그인 성공')
         //로그인에 성공하면 sessionStorage에 로그인하는 회원의 아이디, 이름, 권한 정보를 저장한다.
-        sessionStorage.setItem('userId', res.data.userId)
-        sessionStorage.setItem('userName', res.data.userName)
-        sessionStorage.setItem('userRoll', res.data.userRoll)
+        // sessionStorage.setItem('userId', res.data.userId)
+        // sessionStorage.setItem('userName', res.data.userName)
+        // sessionStorage.setItem('userRoll', res.data.userRoll)
+        
+        //로그인한 회원의 아이디, 이름, 권한 정보만 가진 객체 생성
+        const loginData = {
+          userId : res.data.userId,
+          username : res.data.userName,
+          userRoll : res.data.userRoll
+        }
+        
+        //loginData 객체를 json(객체형태로 생긴 문자열)으로 변환
+        JSON.stringify(loginData)
+
+        //loginData 객체를 json(객체형태로 생긴 문자열)으로 변환 후 세션에 저장
+        //JSON.stringify(객체)  -> 객체를 문자열화(json) 한다.
+        //JSON.parse(json)  -> json 데이터를 객체로 변환한다.
+        sessionStorage.setItem('loginData', JSON.stringify(loginData))
+        //state 변수가 선언된 컴포넌트가 리렌더링됨 -> 여기서는 App
+        setLoginInfo(loginData);
+        nav('/')
       }
 
     })

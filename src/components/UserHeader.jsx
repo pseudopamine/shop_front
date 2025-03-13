@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from './UserHeader.module.css'
 import { Link } from "react-router-dom";
 
-const UserHeader = () => {
+const UserHeader = ({loginInfo, setLoginInfo}) => {
+
   return (
     <>
       <div className={styles.header_container}>
         <div className={styles.login_div}>
-          <span>
-            <Link to={'/login'}>LOGIN</Link>
-          </span>
-          <span>
-            <Link to={'/join'}>JOIN</Link>
-          </span>
+          {
+            loginInfo == null
+            ?  
+            <>
+              <span>
+                <Link to={'/login'}>LOGIN</Link>
+              </span>
+              <span>
+                <Link to={'/join'}>JOIN</Link>
+              </span>
+            </>
+            :
+            <>
+              <span>{loginInfo.userId}님 반갑습니다.</span>
+              <span onClick={() => {
+                sessionStorage.removeItem('loginData');
+                setLoginInfo(null);
+              }}>
+                LOGOUT</span>
+            </>
+          }
+          
         </div>
         <div className={styles.banner_div}>
           <img src='/book.jpg'/>
