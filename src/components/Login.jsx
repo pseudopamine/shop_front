@@ -66,7 +66,9 @@ const Login = ({setLoginInfo}) => {
         sessionStorage.setItem('loginData', JSON.stringify(loginData))
         //state 변수가 선언된 컴포넌트가 리렌더링됨 -> 여기서는 App
         setLoginInfo(loginData);
-        nav('/')
+        //로그인 한 유저의 권한에 따라 이동할 페이지를 지정
+        //일반회원 : 상품 목록 페이지, 관리자 : 상품 등록 페이지
+        nav(loginData.userRoll === 'USER' ? '/' : '/admin/reg-item')
       }
 
     })

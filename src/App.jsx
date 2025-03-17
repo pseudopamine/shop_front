@@ -8,6 +8,7 @@ import UserJoin from './components/UserJoin'
 import Login from './components/Login'
 import StorageTest from './components/practice/StorageTest'
 import { useEffect, useState } from 'react'
+import UploadTest from './components/practice/UploadTest'
 
 
 function App() {
@@ -46,7 +47,9 @@ function App() {
   }, [])
 
   return (
+    
     <div className='container'>
+      <UploadTest />
       {/* <StorageTest /> */}
 
       <Routes>
@@ -66,10 +69,10 @@ function App() {
           
 
         {/* 관리자가 접속하는 페이지 */}
-        <Route path='/admin' element={ <AdminLayout /> }>
+        <Route path='/admin' element={ <AdminLayout loginInfo={loginInfo} setLoginInfo={setLoginInfo}/> }>
 
           {/* 상품등록 */}
-          <Route path='reg-item' element={ <MyItemForm/> }/>
+          <Route path='reg-item' element={ <MyItemForm/> } />
           {/* 회원관리 */}
           <Route path='user-manage' element={<div>회원 관리</div>}/>
           {/* 카테고리 관리 */}

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from './UserHeader.module.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserHeader = ({loginInfo, setLoginInfo}) => {
-
+  const nav = useNavigate();
   return (
     <>
       <div className={styles.header_container}>
@@ -25,6 +25,7 @@ const UserHeader = ({loginInfo, setLoginInfo}) => {
               <span onClick={() => {
                 sessionStorage.removeItem('loginData');
                 setLoginInfo(null);
+                nav('/');
               }}>
                 LOGOUT</span>
             </>

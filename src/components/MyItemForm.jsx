@@ -101,6 +101,12 @@ const ItemForm = () => {
                 <textarea type="text" name="bookInfo" value={bookData.bookInfo} onChange={(e) => {changeBookData(e)}}/>
               </td>
             </tr>
+            <tr>
+              <td>도서이미지</td>
+              <td>
+                <input type='file'/>
+              </td>
+            </tr>
           </tbody>
         </table>
         <ShopButton title="등록하기" size="normal" click={(e) => {insertBookData()}}/>
