@@ -6,6 +6,9 @@ import ShopButton from "../common_component/ShopButton";
 
 //상품 등록 컴포넌트
 const ItemForm = () => {
+  //첨부 파일을 input태그로 받아서 저장할 state 변수
+  const [firstFile, setFirstFile] = useState(null);
+
   //입력받은 책 정보를 저장할 state 변수
   const [bookData, setBookData] = useState({
     cateCode : 1,
@@ -50,13 +53,26 @@ const ItemForm = () => {
   }
 
 
-  console.log(bookData)
-  //상품 등록 컴포넌트
-  //도서명 input
-  //가격 input
-  //풀판사 input
-  //책 소개 textarea
-  //카테고리 코드 select
+  //자바로 데이터 가져갈 때 파일 데이터도 같이 가져가겠다는 설정
+  const fileConfig = {header : {'Content-Type' : 'multipart/form-data'}}
+
+  //클릭 시 데이터를 보내는 기능을 가진 함수
+  const sendData = () => {
+    const form = new FormData();
+    form.append('cateCode', bookData.cateCode)
+    form.append('bookName', bookData.bookName)
+    form.append('bookPrice', bookData.bookPrice)
+    form.append('publisher', bookData.publisher)
+    form.append('bookInfo', bookData.bookInfo)
+    form.append('firstFile', firstFile)
+
+    axios
+        .post('/api/books', form, fileConfig)
+        .catch()
+        .then(error => console.log(error))
+
+  }
+  
   return (
     <>
       <p>상품등록</p>
@@ -104,7 +120,11 @@ const ItemForm = () => {
             <tr>
               <td>도서이미지</td>
               <td>
-                <input type='file'/>
+                <input 
+                  type='file'
+                  onChange={(e) => {setFirstFile(e.target.files)}}
+                />
+                <ShopButton title="이미지등록" size="normal" click={() => {sendData()}}/>
               </td>
             </tr>
           </tbody>
