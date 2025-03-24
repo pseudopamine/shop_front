@@ -6,8 +6,11 @@ import ShopButton from "../common_component/ShopButton";
 
 //상품 등록 컴포넌트
 const ItemForm = () => {
-  //첨부 파일을 input태그로 받아서 저장할 state 변수
-  const [firstFile, setFirstFile] = useState(null);
+  //선택한 메인 이미지 파일을 input태그로 받아서 저장할 state 변수
+  const [mainImg, setMainImg] = useState(null);
+
+  //선택한 상세 이미지 파일을 input태그로 받아서 저장할 state 변수
+  const [subImg, setSubImg] = useState(null);
 
   //입력받은 책 정보를 저장할 state 변수
   const [bookData, setBookData] = useState({
@@ -41,10 +44,23 @@ const ItemForm = () => {
 
   //클릭 시 데이터를 내보내는 기능의 함수
   const insertBookData = () => {
+    const regForm = new FormData();
+    //도서 등록 시(DB에 insert) 필요한 데이터 적재
+    regForm.append('cateCode', bookData.cateCode)
+    regForm.append('bookName', bookData.bookName)
+    regForm.append('bookPrice', bookData.bookPrice)
+    regForm.append('publisher', bookData.publisher)
+    regForm.append('bookInfo', bookData.bookInfo)
+
+    //첨부파일 데이터 적재
+    regForm.append('mainImg', mainImg);
+    regForm.append('subImg', subImg);
+
+
     if(!confirm('등록하시겠습니까')){
       return;
     }
-    insertBook(bookData)
+    insertBook(regForm)
         .then(res => {
           console.log(res.data)
           alert('등록되었습니다.')
@@ -53,25 +69,24 @@ const ItemForm = () => {
   }
 
 
-  //자바로 데이터 가져갈 때 파일 데이터도 같이 가져가겠다는 설정
-  const fileConfig = {header : {'Content-Type' : 'multipart/form-data'}}
+  // //자바로 데이터 가져갈 때 파일 데이터도 같이 가져가겠다는 설정
+  // const fileConfig = {header : {'Content-Type' : 'multipart/form-data'}}
 
-  //클릭 시 데이터를 보내는 기능을 가진 함수
-  const sendData = () => {
-    const form = new FormData();
-    form.append('cateCode', bookData.cateCode)
-    form.append('bookName', bookData.bookName)
-    form.append('bookPrice', bookData.bookPrice)
-    form.append('publisher', bookData.publisher)
-    form.append('bookInfo', bookData.bookInfo)
-    form.append('firstFile', firstFile)
+  // //클릭 시 데이터를 보내는 기능을 가진 함수
+  // const sendData = () => {
+  //   const form = new FormData();
+  //   form.append('cateCode', bookData.cateCode)
+  //   form.append('bookName', bookData.bookName)
+  //   form.append('bookPrice', bookData.bookPrice)
+  //   form.append('publisher', bookData.publisher)
+  //   form.append('bookInfo', bookData.bookInfo)
+  //   form.append('firstFile', firstFile)
 
-    axios
-        .post('/api/books', form, fileConfig)
-        .catch()
-        .then(error => console.log(error))
-
-  }
+  //   axios
+  //       .post('/api/books', form, fileConfig)
+  //       .catch()
+  //       .then(error => console.log(error))
+  // } 
   
   return (
     <>
@@ -118,13 +133,21 @@ const ItemForm = () => {
               </td>
             </tr>
             <tr>
-              <td>도서이미지</td>
+              <td>도서 메인 이미지</td>
               <td>
                 <input 
                   type='file'
-                  onChange={(e) => {setFirstFile(e.target.files)}}
+                  onChange={(e) => {setMainImg(e.target.files[0])}}
                 />
-                <ShopButton title="이미지등록" size="normal" click={() => {sendData()}}/>
+              </td>
+            </tr>
+            <tr>
+              <td>도서 상세 이미지</td>
+              <td>
+                <input 
+                  type='file'
+                  onChange={(e) => {setSubImg(e.target.files[0])}}
+                />
               </td>
             </tr>
           </tbody>
